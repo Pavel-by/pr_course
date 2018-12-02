@@ -2,24 +2,31 @@
 
 #ifndef TEXT_STRUCTS
 
-typedef struct
-{
-    wchar_t *pointer; /* Указатель на слово */
-    wchar_t delimeter /* Разделитель, стоящий после слова. NULL, если следующий после слова символ был символом конца предложения или всего текста */
-} Word;
+typedef struct WordProt Word;
+typedef struct SentenceProt Sentence;
+typedef struct TextProt Text;
 
-typedef struct
+struct WordProt
 {
-    Word *words;      /* Слова, содержащиеся в предложении */
-    int len;          /* Количество слов в предложении */
-    wchar_t delimeter /* Разделитель предложения - символ, на который предложение заканчивается. Точка (потенциально могут появиться еще и вопрос с воскл. знаком) */
-} Sentence;
+    wchar_t delimeter; /* Разделитель, стоящий после слова. NULL, если следующий после слова символ был символом конца предложения или всего текста */
 
-typedef struct
+    Word *next;
+    Word *prev;
+    wchar_t *pointer;  /* Указатель на слово */
+};
+
+struct SentenceProt
 {
-    Sentence *sentences; /* Указатель на список предложений, которые есть в тексте */
-    int len              /* Количество предложений */
-} Text;
+    Word *first; /* Указатель на первое слово */
+    wchar_t delimeter;  /* Разделитель предложения - символ, на который предложение заканчивается. Точка (потенциально могут появиться еще и вопрос с воскл. знаком) */
+};
+
+struct TextProt
+{
+    Sentence **sentences; /* Указатель на список предложений, которые есть в тексте */
+    int len;                     /* Количество предложений */
+};
+
 
 #endif
 #define TEXT_STRUCTS 1
