@@ -255,7 +255,13 @@ int sent_eq(Sentence *sent1, Sentence *sent2)
 {
     Word *w1, *w2;
     w1 = sent1->first;
+    while (w1 != NULL && wcslen(w1->pointer) == 0) {
+        w1 = w1->next;
+    }
     w2 = sent2->first;
+    while (w2 != NULL && wcslen(w2->pointer) == 0) {
+        w2 = w2->next;
+    }
     while (w1 != NULL && w2 != NULL)
     {
         wchar_t *temp1 = wcslwr(w1->pointer), *temp2 = wcslwr(w2->pointer);
